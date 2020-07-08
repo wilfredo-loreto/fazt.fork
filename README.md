@@ -28,15 +28,6 @@ npm run build
 * `/misc` Enlaces de interés.
 * `/github`, para listar los repos de la comunidad
 
-# pending
-* doc api (jsdoc, apidoc, swagger, postman, manual)
-* foros
-* seed (datos de ejemplo para desarrollo). Puede estar basado en un backup
-* docker (env y prod)
-* PATCH
-* servicios para models
-* Encriptar contraseña
-
 # Environment Variables
 * PORT, this is the default http port, by default is `3000`
 * MONGODB_URI, this is the mongodb URI for connection. By default is `mongodb://localhost/faztapi`
