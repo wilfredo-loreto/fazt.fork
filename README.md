@@ -1,11 +1,11 @@
 # fazt api
 
 # scripts
-dev
+npm run dev
 
-start
+npm start
 
-build
+npm run build
 
 # endpoints
 
