@@ -36,7 +36,7 @@ export const deleteProject: Handler = async (req, res) => {
 		if (!projectDeleted)
 			return res.status(404).json({ message: 'Project not Found' });
 
-		return res.status(200).json(projectDeleted);
+		return res.status(200).json({ message: 'Project Deleted' });
 	} catch (e) {
 		return res.status(500).json({ message: 'Internal Server Error' });
 	}
@@ -49,7 +49,9 @@ export const updateProject: Handler = async (req, res) => {
 		return res.status(404).json({ message: 'Project not found' });
 	}
 
-	project = await Project.findByIdAndUpdate(req.params.id, req.body);
+	project = await Project.findByIdAndUpdate(req.params.id, req.body, {
+		new: true
+	});
 
-	return res.status(200).json({ message: 'Project updated' });
+	return res.status(200).json(project);
 };
