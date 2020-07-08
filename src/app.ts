@@ -1,13 +1,13 @@
 import express from 'express';
-import helmet from 'helmet'
-import morgan from 'morgan'
+import helmet from 'helmet';
+import morgan from 'morgan';
 import cors from 'cors';
-import path from 'path'
+import path from 'path';
 
 const app = express();
 
-import taskRoutes from './routes/tasks.routes'
-import projectsRoutes from './routes/projects.routes'
+import taskRoutes from './routes/tasks.routes';
+import projectsRoutes from './routes/projects.routes';
 import userRoutes from './routes/users.routes';
 
 // settings
@@ -18,7 +18,7 @@ app.use(morgan('tiny'));
 app.use(cors());
 app.use(helmet());
 app.use(express.json());
-app.use(express.urlencoded({extended: false}));
+app.use(express.urlencoded({ extended: false }));
 
 // routes
 app.use('/tasks', taskRoutes);
@@ -33,6 +33,5 @@ app.use('/users', userRoutes);
 app.use(express.static(path.join(__dirname, 'public')));
 
 // global variables
-
 
 export default app;
