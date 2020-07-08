@@ -44,4 +44,6 @@ export const deleteUser: Handler = async (req, res) => {
   }
 };
 
-export const updateUser = async (req: Request, res: Response) => {};
+export const updateUser: Handler = async (req, res) => {
+  return res.json({ message: 'User Updated' });
+};
