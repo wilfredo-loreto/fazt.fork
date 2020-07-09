@@ -8,6 +8,8 @@ const app = express();
 
 import routes from './routes';
 
+import { handleErrorMiddleware } from './error';
+
 // settings
 app.set('port', process.env.PORT || 3000);
 
@@ -19,6 +21,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 app.use('/', routes);
+
+app.use(handleErrorMiddleware);
 
 // static files
 app.use(express.static(path.join(__dirname, 'public')));
