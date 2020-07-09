@@ -11,6 +11,8 @@ services:
       - .:/usr/src/app
     links: 
       - mongo 
+    environment: 
+      - MONGODB_URI=mongodb://mongo/faztdb
   mongo:
     container_name: mydatabase
     image: mongo
