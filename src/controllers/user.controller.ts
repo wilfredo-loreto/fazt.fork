@@ -1,8 +1,15 @@
+<<<<<<< HEAD
+import { Handler } from "../types";
+import User from "../models/User";
+import { success, error } from "../network/response";
+import { generateAndSignToken } from "../auth/auth";
+=======
 import { Handler } from '../types';
 import User from '../models/User';
 import { success, error } from '../network/response';
 import { ErrorHandler } from '../error';
 import { NOT_FOUND } from 'http-status-codes';
+>>>>>>> 5fe2178... refactor: removed try catchs and only use error handle
 
 export const getUsers: Handler = async (req, res) => {
   const Users = await User.find();
@@ -26,11 +33,21 @@ export const createUser: Handler = async (req, res) => {
 };
 
 export const deleteUser: Handler = async (req, res) => {
+<<<<<<< HEAD
+  try {
+    const user = await User.findById(req.params.id);
+    await User.findByIdAndRemove(req.params.id);
+    return success(res, User, "200");
+  } catch (e) {
+    return error(res, "404", "User not found");
+  }
+=======
   const user = await User.findById(req.params.id);
   if (!user) throw new ErrorHandler(NOT_FOUND, 'User not found');
 
   await User.findByIdAndRemove(req.params.id);
   return res.status(200).json({ message: 'User Deleted' });
+>>>>>>> 5fe2178... refactor: removed try catchs and only use error handle
 };
 
 export const updateUser: Handler = async (req, res) => {

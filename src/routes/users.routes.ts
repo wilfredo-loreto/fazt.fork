@@ -1,5 +1,7 @@
 import { Router } from 'express';
 import * as userCtrl from '../controllers/user.controller';
+import { checkAuth } from '../auth/auth.middleware';
+import { handlerExceptionRoute } from '../error';
 
 import { handlerExceptionRoute } from '../error';
 
@@ -12,10 +14,13 @@ router
 
 router
   .route('/:id')
-  .get(handlerExceptionRoute(userCtrl.getUser))
-  .put(handlerExceptionRoute(userCtrl.updateUser))
-  .delete(handlerExceptionRoute(userCtrl.deleteUser));
+  .get(userCtrl.getUser)
+  .put(checkAuth('updateOrDelete'), handlerExceptionRoute(userCtrl.updateUser))
+  .delete(
+    checkAuth('updateOrDelete'),
+    handlerExceptionRoute(userCtrl.deleteUser)
+  );
 
-router.route("/signin").post(userCtrl.signinUser);
+router.route('/signin').post(handlerExceptionRoute(userCtrl.signinUser));
 
 export default router;
