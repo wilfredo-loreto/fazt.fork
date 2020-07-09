@@ -1,16 +1,20 @@
-import { Router } from "express";
-import * as userCtrl from "../controllers/user.controller";
-import { checkAuth } from "../auth/auth.middleware";
+import { Router } from 'express';
+import * as userCtrl from '../controllers/user.controller';
+
+import { handlerExceptionRoute } from '../error';
 
 const router = Router();
 
-router.route("/").get(userCtrl.getUsers).post(userCtrl.createUser);
+router
+  .route('/')
+  .get(handlerExceptionRoute(userCtrl.getUsers))
+  .post(handlerExceptionRoute(userCtrl.createUser));
 
 router
-  .route("/:id")
-  .get(userCtrl.getUser)
-  .put(checkAuth("updateOrDelete"), userCtrl.updateUser)
-  .delete(checkAuth("updateOrDelete"), userCtrl.deleteUser);
+  .route('/:id')
+  .get(handlerExceptionRoute(userCtrl.getUser))
+  .put(handlerExceptionRoute(userCtrl.updateUser))
+  .delete(handlerExceptionRoute(userCtrl.deleteUser));
 
 router.route("/signin").post(userCtrl.signinUser);
 
