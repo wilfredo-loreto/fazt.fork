@@ -1,15 +1,9 @@
-<<<<<<< HEAD
-import { Handler } from "../types";
-import User from "../models/User";
-import { success, error } from "../network/response";
-import { generateAndSignToken } from "../auth/auth";
-=======
 import { Handler } from '../types';
 import User from '../models/User';
 import { success, error } from '../network/response';
+import { generateAndSignToken } from '../auth/auth';
 import { ErrorHandler } from '../error';
-import { NOT_FOUND } from 'http-status-codes';
->>>>>>> 5fe2178... refactor: removed try catchs and only use error handle
+import { NOT_FOUND, BAD_REQUEST, UNAUTHORIZED } from 'http-status-codes';
 
 export const getUsers: Handler = async (req, res) => {
   const Users = await User.find();
@@ -33,21 +27,11 @@ export const createUser: Handler = async (req, res) => {
 };
 
 export const deleteUser: Handler = async (req, res) => {
-<<<<<<< HEAD
-  try {
-    const user = await User.findById(req.params.id);
-    await User.findByIdAndRemove(req.params.id);
-    return success(res, User, "200");
-  } catch (e) {
-    return error(res, "404", "User not found");
-  }
-=======
   const user = await User.findById(req.params.id);
   if (!user) throw new ErrorHandler(NOT_FOUND, 'User not found');
 
   await User.findByIdAndRemove(req.params.id);
-  return res.status(200).json({ message: 'User Deleted' });
->>>>>>> 5fe2178... refactor: removed try catchs and only use error handle
+  return res.status(200).json(user);
 };
 
 export const updateUser: Handler = async (req, res) => {
@@ -56,21 +40,17 @@ export const updateUser: Handler = async (req, res) => {
 
 export const signinUser: Handler = async (req, res) => {
   const { email, password } = req.body;
-  try {
-    if (!(email && password)) {
-      return error(res, "400", "llenar los campos");
-    }
-
-    //validate credentials
-    const crendential = (await User.find({ email })).pop();
-    if (!crendential) {
-      return error(res, "401", "Credentials invalidad, verify");
-    }
-
-    //compare password
-    const token = await generateAndSignToken({ user: crendential.id });
-    return success(res, token, "200");
-  } catch (error) {
-    return error(res, "500");
+  if (!(email && password)) {
+    throw new ErrorHandler(BAD_REQUEST, 'Complete Fields');
   }
+
+  //validate credentials
+  const crendential = (await User.find({ email })).pop();
+  if (!crendential) {
+    throw new ErrorHandler(UNAUTHORIZED, 'Invalid Credentials');
+  }
+
+  //compare password
+  const token = await generateAndSignToken({ user: crendential.id });
+  return res.json(token);
 };
