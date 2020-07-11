@@ -7,7 +7,7 @@ import { Handler } from '../types';
 export class ErrorHandler extends Error {
   statusCode: number;
 
-  constructor(statusCode: number, message: string, trace?: string) {
+  constructor(statusCode: number, message: any, trace?: string) {
     super();
     this.statusCode = statusCode;
     this.message = message;
@@ -60,7 +60,7 @@ export const handlerExceptionRoute = (fn: Handler): any => (
     const route = fn(req, res);
     if (route instanceof Promise) {
       route?.catch((error: Error) => {
-        errorParse(error, next);
+        errorParse(error, next);                                                                                                                                           
       });
     }
   } catch (error) {

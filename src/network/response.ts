@@ -1,38 +1,14 @@
 import { Response } from "express";
+import { SuccessCodes } from '../types';
 
-type StatusCode = "200" | "201" | "400" | "401" | "404" | "500"; //status for server
-
-interface IMessage {
+interface HTTPResponse {
   //interface for message the status server
-  [code: string]: string;
+ message: string,
+ data?: any
 }
 
-const statusResponse: IMessage = {
-  //response the server with statusCode
-  "200": "OK!",
-  "201": "CREATED!",
-  "400": "CLIENT ERROR!",
-  "401": "UNAUTHORIZED",
-  "404": "NOT FOUND!",
-  "500": "INTERNAL SERVER ERROR",
-};
+export interface HTTPSuccess extends HTTPResponse{
+  code:SuccessCodes;
+}
 
-export const success = (
-  res: Response,
-  data: any,
-  statusCode: StatusCode
-): Response => {
-  return res //return with response, status code, json
-    .status(Number(statusCode))
-    .json({ message: statusResponse[statusCode], data, statusCode }); //message: statusResponse:'ok', 'create'... data:User:{name, password..}
-};
-
-export const error = (
-  res: Response,
-  statusCode: StatusCode,
-  extraInfo?: string
-) => {
-  return res
-    .status(Number(statusCode))
-    .json({ message: statusResponse[statusCode], statusCode, extraInfo }); //message: statusResponse: 'internal error', 'client error'..., extraInfo: "Credentials invalid"
-};
+export const success = (res: Response, data:HTTPSuccess) => res.status(data.code).json(data);

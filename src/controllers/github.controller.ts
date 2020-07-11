@@ -1,5 +1,6 @@
 import {Request, Response} from 'express';
-import Github from '../models/Github';
+
+
 export const getGithubs = async(req: Request, res: Response) => {
 
 }

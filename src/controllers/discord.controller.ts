@@ -8,6 +8,7 @@ export const getDiscords = async (req: Request, res: Response) => {
         return res.status(404).json({message: ''});
     }
 }
+
 export const getDiscord = async (req: Request, res: Response) => {
     const discord = await Discord.findById(req.params.id);
     if (!discord) {

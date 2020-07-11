@@ -1,6 +1,7 @@
-import { Request, Response } from 'express';
+import { Request, Response, NextFunction } from 'express';
 
 export type Handler = (
   req: Request,
-  res: Response
+  res: Response,
+  next?: NextFunction
 ) => Promise<Response> | Response;

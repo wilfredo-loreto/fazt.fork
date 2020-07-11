@@ -1,55 +1,36 @@
 import { Request, Response } from "express";
 import Workshop from "../models/Workshops";
+import { ErrorHandler } from '../error';
+import { NOT_FOUND } from 'http-status-codes'
+import { Handler } from '../types';
 
-export const getWorshops = async (req: Request, res: Response) => {
-  try {
-    const workshops = await Workshop.find();
-    return res.status(200).json(workshops);
-  } catch (e) {
-    return res.status(500).send({ message: "Error getting workshops" });
-  }
+export const getWorshops:Handler = async (req, res) => {
+  const workshops = await Workshop.find();
+  return res.status(200).json(workshops);
 };
-export const getWorshop = async (req: Request, res: Response) => {
+export const getWorshop:Handler = async (req, res) => {
   const workshops = await Workshop.findById(req.params.id);
   return res.status(200).json(workshops);
 };
-export const createWorshop = async (
-  req: Request,
-  res: Response
-): Promise<Response> => {
-  try {
-    const { title, description, date, workshopUser } = req.body;
-    const newWorkshop = new Workshop({
-      title,
-      description,
-      date,
-      workshopUser,
-    });
-    await newWorkshop.save();
-    return res.status(201).json(newWorkshop);
-  } catch (err) {
-    return res.status(500).json({ message: "Internal server error" });
-  }
+export const createWorshop: Handler = async (req, res) => {
+  const { title, description, date, workshopUser } = req.body;
+  const newWorkshop = new Workshop({
+    title,
+    description,
+    date,
+    workshopUser,
+  });
+  await newWorkshop.save();
+  return res.status(201).json(newWorkshop);
 };
-export const deleteWorshop = async (req: Request, res: Response) => {
-  try {
-    const workshopDeleted = await Workshop.findByIdAndDelete(req.params.id);
-    if (!workshopDeleted) return res.json({ message: "Workshop not found" });
-    res.status(200).json({ message: "Workshop Deleted" });
-  } catch (e) {
-    res.status(500).json({ message: "Error delete workshop" });
-  }
+export const deleteWorshop: Handler = async (req, res) => {
+  const workshopDeleted = await Workshop.findByIdAndDelete(req.params.id);
+  if (!workshopDeleted) throw new ErrorHandler(NOT_FOUND, 'Workshop not Found');
+  return res.status(200).json({ message: "Workshop Deleted" });
 };
-export const updateWorshop = async (req: Request, res: Response) => {
-  try{
+export const updateWorshop:Handler = async (req, res) => {
   const workshop = await Workshop.findById(req.params.id);
-  if (!workshop) {
-    return res.status(200).json({ message: "Workshop Updated" });
-     await Workshop.findByIdAndUpdate(req.params.id, req.body);
-
-  }
-}catch (e) {
-  return res.status(500).json({ message: "Workshop not found" });
-
-}
+  if (!workshop) throw new ErrorHandler(NOT_FOUND, 'WorkShop not Found');
+  await Workshop.findByIdAndUpdate(req.params.id, req.body);
+  return res.status(200).json({ message: "Workshop Updated" });
 };

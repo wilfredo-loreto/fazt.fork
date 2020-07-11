@@ -1,20 +1,29 @@
 import { Handler } from '../types';
 import User from '../models/User';
-import { success, error } from '../network/response';
 import { generateAndSignToken } from '../auth/auth';
 import { ErrorHandler } from '../error';
 import { NOT_FOUND, BAD_REQUEST, UNAUTHORIZED } from 'http-status-codes';
 
 export const getUsers: Handler = async (req, res) => {
   const Users = await User.find();
-  return success(res, Users, '200');
+  return res.status(200).json({
+    code: 200,
+    data: Users,
+    message: 'Ok!'
+  });
 };
+
 export const getUser: Handler = async (req, res) => {
   const user = await User.findById(req.params.id);
   if (!user) throw new ErrorHandler(NOT_FOUND, 'User not found');
 
-  return success(res, User, '200');
+  return res.status(200).json({
+    code: 200,
+    data: user,
+    message: 'Ok!'
+  });
 };
+
 export const createUser: Handler = async (req, res) => {
   const { nickname, email, password, firstName, lastName } = req.body;
   const user = new User({ nickname, email, firstName, password, lastName });
@@ -23,7 +32,11 @@ export const createUser: Handler = async (req, res) => {
   const newUser = await user.save();
   console.log(newUser);
   delete newUser.password;
-  return success(res, newUser, '201');
+  return res.status(201).json({
+    code: 201,
+    data: newUser,
+    message: 'Created!'
+  });
 };
 
 export const deleteUser: Handler = async (req, res) => {
@@ -31,7 +44,10 @@ export const deleteUser: Handler = async (req, res) => {
   if (!user) throw new ErrorHandler(NOT_FOUND, 'User not found');
 
   await User.findByIdAndRemove(req.params.id);
-  return res.status(200).json(user);
+  return res.status(200).json({
+    code: 200,
+    message: 'Ok!'
+  });
 };
 
 export const updateUser: Handler = async (req, res) => {

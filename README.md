@@ -43,9 +43,10 @@ npm run build
 # Environment Variables
 * PORT, this is the default http port, by default is `3000`
 * MONGODB_URI, this is the mongodb URI for connection. By default is `mongodb://localhost/faztapi`
+* JWT_SECRET, this is the secret key for jwt
 
 # Docker
-to run with docker compose, create file .env with MONGODB_URI
+to run with docker compose, create file .env with 
 ```bash
 docker-compose up
 ```
@@ -56,7 +57,7 @@ docker-compose up
 * LordBeor [About me](https://github.com/Beor18)
 * Fede [About me](https://github.com/Fedeya)
 * Nova [About me](https://github.com/Michelyp)
-* MatteoZL [About me](https://github.com/MatteoZL)
+* Matt [About me](https://github.com/Matttweb)
 * Lea (Lea.js in Discord) [About me](https://github.com/venezia-dev)
 * CejasClaudio [About me](https://github.com/CejasClaudioA)
 * Paolinsky (Paolo Torregroza) [About me](https://github.com/PaoloTorregroza)

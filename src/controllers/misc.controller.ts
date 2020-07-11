@@ -1,5 +1,37 @@
-export const geMiscs = () => {}
-export const getMisc = () => {}
-export const createMisc = () => {}
-export const deleteMisc= () => {}
-export const updateMisc = () => {}
+import { Handler } from '../types';
+import Misc from "../models/Misc";
+import { ErrorHandler } from '../error';
+import { NOT_FOUND } from 'http-status-codes';
+
+export const getMiscs: Handler = async (req, res) => {
+  const misc = await Misc.find();
+  return res.status(200).json(misc);
+};
+
+export const getMisc: Handler = async (req, res) => {
+  const result= await Misc.findById(req.params.id);
+  if(!result) throw new ErrorHandler(NOT_FOUND, "Misc not found");
+  return res.status(200).json(result);
+};
+
+export const createMisc: Handler = async (req, res) => {
+  const {title, url, misc } = req.body;
+  const newMisc= new Misc({
+      title,
+      url,
+      misc,
+  })
+  await newMisc.save();
+  return res.status(201).json(newMisc);
+};
+
+export const deleteMisc: Handler = async (req, res) => {
+    const result= await Misc.findByIdAndRemove(req.params.id);
+    return res.status(200).json(result);
+};
+
+//Falta esto
+export const updateMisc: Handler = async (req, res) => {
+  return res.json();
+};
+  

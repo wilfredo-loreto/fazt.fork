@@ -1,18 +1,20 @@
 import jwt from "jsonwebtoken";
 import { Request } from "express";
 
+import { JWT_SECRET } from "../config";
+
 interface IPayload {
   user: {
     id: string;
   };
 }
 export const generateAndSignToken = async (payload: IPayload) => {
-  return await jwt.sign(payload, "AFJDLSSECRET", { expiresIn: 60 * 60 * 60 });
+  return jwt.sign(payload, JWT_SECRET, { expiresIn: 60 * 60 * 60 });
 };
 
 export const decodeToken = (token: string) => {
   try {
-    const payload = jwt.verify(token, "AFJDLSSECRET" as string) as IPayload;
+    const payload = jwt.verify(token, JWT_SECRET as string) as IPayload;
     if (!payload) {
       return;
     }
