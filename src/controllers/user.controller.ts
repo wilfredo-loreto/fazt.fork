@@ -1,7 +1,7 @@
 // Copyright 2020 Fazt Community ~ All rights reserved. MIT license.
 import { Handler } from '../types';
 import User from '../models/User';
-import { generateAndSignToken, comparePassword } from '../util/service/Auth';
+import { generateAndSignToken } from '../util/service/Auth';
 import { ErrorHandler } from '../error';
 import { NOT_FOUND, BAD_REQUEST, UNAUTHORIZED } from 'http-status-codes';
 
@@ -31,11 +31,12 @@ export const createUser: Handler = async (req, res) => {
   await user.setPassword(password);
 
   const newUser = await user.save();
+  const token = await generateAndSignToken({ user: newUser.id })
   console.log(newUser);
   delete newUser.password;
   return res.status(201).json({
     code: 201,
-    data: newUser,
+    data: token,
     message: 'Created!'
   });
 };

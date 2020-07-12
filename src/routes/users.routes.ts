@@ -2,6 +2,7 @@
 import { Router } from 'express';
 import * as userCtrl from '../controllers/user.controller';
 import { handlerExceptionRoute } from '../error';
+import { authMiddleware } from '../util/secure/middlewareAuth'
 
 const router = Router();
 
@@ -81,7 +82,7 @@ router.get('/:id', handlerExceptionRoute(userCtrl.getUser));
  */
 router.put('/', handlerExceptionRoute(userCtrl.updateUser));
 
-router.delete('/:id', handlerExceptionRoute(userCtrl.deleteUser));
+router.delete('/:id', authMiddleware, handlerExceptionRoute(userCtrl.deleteUser));
 
 router.post('/signin', handlerExceptionRoute(userCtrl.signinUser));
 export default router;
