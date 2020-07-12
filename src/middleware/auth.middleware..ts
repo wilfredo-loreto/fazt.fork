@@ -3,6 +3,7 @@ import { Request, Response, NextFunction } from 'express';
 import { UNAUTHORIZED } from 'http-status-codes';
 import { ErrorHandler } from '../error';
 import jwt from 'jsonwebtoken';
+import { JWT_SECRET } from '../config';
 
 export const authMiddleware = async (
     req: Request,
@@ -15,7 +16,7 @@ export const authMiddleware = async (
         return;
     }
     try {
-        const payload = jwt.verify(token, 'secre198247242') as IPayload;
+        const payload = jwt.verify(token, JWT_SECRET) as IPayload;
         //console.log(payload);
         req.user = payload.user;
         next();

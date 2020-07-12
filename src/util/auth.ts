@@ -1,4 +1,5 @@
 import jwt from "jsonwebtoken";
+import { JWT_SECRET } from '../config';
 
 export interface IPayload {
     user: {
@@ -8,6 +9,6 @@ export interface IPayload {
 
 
 export const generateAndSignToken = async (payload: IPayload) => {
-    return await jwt.sign(payload, "secre198247242", { expiresIn: "1h" });
+    return await jwt.sign(payload, JWT_SECRET, { expiresIn: "1h" });
 };
 
