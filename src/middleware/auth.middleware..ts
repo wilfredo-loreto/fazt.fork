@@ -1,7 +1,7 @@
-import { IPayload } from '../service/auth.service';
+import { IPayload } from '../util/auth';
 import { Request, Response, NextFunction } from 'express';
 import { UNAUTHORIZED } from 'http-status-codes';
-import { ErrorHandler } from '../../error';
+import { ErrorHandler } from '../error';
 import jwt from 'jsonwebtoken';
 
 export const authMiddleware = async (
