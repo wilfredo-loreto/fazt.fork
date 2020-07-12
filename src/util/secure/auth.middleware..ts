@@ -1,4 +1,4 @@
-import { IPayload } from '../service/Auth';
+import { IPayload } from '../service/auth.service';
 import { Request, Response, NextFunction } from 'express';
 import { UNAUTHORIZED } from 'http-status-codes';
 import { ErrorHandler } from '../../error';

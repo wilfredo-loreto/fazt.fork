@@ -1,7 +1,7 @@
 // Copyright 2020 Fazt Community ~ All rights reserved. MIT license.
 import { Handler } from '../types';
 import User from '../models/User';
-import { generateAndSignToken } from '../util/service/Auth';
+import { generateAndSignToken } from '../util/service/auth.service';
 import { ErrorHandler } from '../error';
 import { NOT_FOUND, BAD_REQUEST, UNAUTHORIZED } from 'http-status-codes';
 

@@ -2,7 +2,7 @@
 import { Router } from 'express';
 import * as userCtrl from '../controllers/user.controller';
 import { handlerExceptionRoute } from '../error';
-import { authMiddleware } from '../util/secure/middlewareAuth'
+import { authMiddleware } from '../util/secure/auth.middleware.'
 
 const router = Router();
 
