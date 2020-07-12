@@ -2,6 +2,7 @@
 import { Router } from 'express';
 import * as userCtrl from '../controllers/user.controller';
 import { handlerExceptionRoute } from '../error';
+import { authMiddleware } from '../middlewares/auth.middleware';
 
 const router = Router();
 
@@ -38,7 +39,7 @@ router.get('/', handlerExceptionRoute(userCtrl.getUsers));
  * @apiSuccess {String} email Correo electrónico del Usuario
  * @apiSuccess {String} password Contraseña del Usuario
  */
-router.post('/', handlerExceptionRoute(userCtrl.getUsers));
+router.post('/', handlerExceptionRoute(userCtrl.createUser));
 
 /**
  * @api {get} /users/:id Obtiene un usuario en especifico.
@@ -56,7 +57,7 @@ router.post('/', handlerExceptionRoute(userCtrl.getUsers));
  *
  * @apiError User not found.
  */
-router.get('/:id', userCtrl.getUser);
+router.get('/:id', handlerExceptionRoute(userCtrl.getUser));
 
 /**
  * @api {put} /users/:id Actualiza un usuario en especifico.
@@ -81,6 +82,11 @@ router.get('/:id', userCtrl.getUser);
  */
 router.put('/', handlerExceptionRoute(userCtrl.updateUser));
 
-router.get('/:id', userCtrl.getUser);
+router.delete(
+  '/:id',
+  authMiddleware,
+  handlerExceptionRoute(userCtrl.deleteUser)
+);
 
+router.post('/signin', handlerExceptionRoute(userCtrl.signinUser));
 export default router;

@@ -1,7 +1,7 @@
 // Copyright 2020 Fazt Community ~ All rights reserved. MIT license.
 import { Handler } from '../types';
 import User from '../models/User';
-import { generateAndSignToken } from '../auth/auth';
+import { generateAndSignToken } from '../utils/auth';
 import { ErrorHandler } from '../error';
 import { NOT_FOUND, BAD_REQUEST, UNAUTHORIZED } from 'http-status-codes';
 
@@ -31,11 +31,12 @@ export const createUser: Handler = async (req, res) => {
   await user.setPassword(password);
 
   const newUser = await user.save();
+  const token = await generateAndSignToken({ user: newUser.id });
   console.log(newUser);
   delete newUser.password;
   return res.status(201).json({
     code: 201,
-    data: newUser,
+    data: token,
     message: 'Created!'
   });
 };
@@ -68,6 +69,13 @@ export const signinUser: Handler = async (req, res) => {
   }
 
   //compare password
+  const passwordCorrect: boolean = await crendential.comparePassword(password);
+  if (!passwordCorrect) {
+    throw new ErrorHandler(UNAUTHORIZED, 'Invalid Credentials');
+  }
   const token = await generateAndSignToken({ user: crendential.id });
-  return res.json(token);
+  return res.status(200).json({
+    code: 200,
+    data: token
+  });
 };
