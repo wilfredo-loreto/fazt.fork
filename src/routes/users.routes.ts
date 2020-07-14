@@ -57,15 +57,16 @@ const router = Router();
 router.get('/', handlerExceptionRoute(userCtrl.getUsers));
 
 /**
- * @api {post} /users Crea un nuevo Usuario
- * @apiDescription Crea un Usuario nuevo y lo almacena en la base de datos.
+ * @api {post} /users/signin Crea una nueva Usuario
+ * @apiDescription Registra un usuario nuevo
  * @apiName PostUser
  * @apiGroup Users
  * @apiUse PostPut
  * @apiUse OneSuccessResponse
  * @apiUse ErrorResponse
  */
-router.post('/', handlerExceptionRoute(userCtrl.createUser));
+
+router.post('/signin', handlerExceptionRoute(userCtrl.createUser));
 
 /**
  * @api {get} /users/:id Obtiene un usuario en especifico.
@@ -89,15 +90,14 @@ router.get('/:id', handlerExceptionRoute(userCtrl.getUser));
  * @apiUse OneSuccessResponse
  * @apiUse ErrorResponse
  */
-router.put('/', handlerExceptionRoute(userCtrl.updateUser));
+router.put('/', authMiddleware, handlerExceptionRoute(userCtrl.updateUser));
 
 /**
- * @api {delete} /users/:id Elimina una usuario en especifico.
+ * @api {delete} /users/ Elimina una usuario en especifico.
  * @apiDescription Obtiene un usuario en especifico de los almacenados en la base de datos a traves de su _id
  * y lo elimina.
  * @apiName DeleteUserID
  * @apiGroup Users
- * @apiParam {String} _id Identificador del objeto.
  * @apiSuccessExample {json} Success-Response:
  *     HTTP/1.1 200 OK
  *     {
@@ -105,10 +105,10 @@ router.put('/', handlerExceptionRoute(userCtrl.updateUser));
  *     }
  * @apiUse ErrorResponse
  */
-router.delete('/:id',authMiddleware,handlerExceptionRoute(userCtrl.deleteUser));
+router.delete('/', authMiddleware, handlerExceptionRoute(userCtrl.deleteUser));
 
 /**
- * @api {post} /users Valida campos
+ * @api {post} /users/login Valida campos
  * @apiDescription Valida que los campos email y password hayan sido completados.
  * @apiName PostUserSingIn
  * @apiGroup Users
@@ -121,6 +121,7 @@ router.delete('/:id',authMiddleware,handlerExceptionRoute(userCtrl.deleteUser));
  *     }
  * @apiUse ErrorResponse
  */
-router.post('/signin', handlerExceptionRoute(userCtrl.signinUser));
+
+router.post('/login', handlerExceptionRoute(userCtrl.loginUser));
 
 export default router;
