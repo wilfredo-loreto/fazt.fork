@@ -1,10 +1,8 @@
 // Copyright 2020 Fazt Community ~ All rights reserved. MIT license.
-
 import { Router } from 'express';
 import { handlerExceptionRoute } from '../error';
 import * as jobCtrl from '../controllers/jobs.controller';
 import * as jobsValidator from '../validators/jobs.validator';
-
 const router = Router();
 
 /**
@@ -16,7 +14,7 @@ const router = Router();
  *     }
  */
 /**
- * @apiDefine OneSuccessResponse
+ * @apiDefine OneSuccessR
  * @apiSuccessExample {json} Success-Response:
  *     HTTP/1.1 200 OK
  *     {
@@ -29,7 +27,7 @@ const router = Router();
  *     }
  */
 /**
- * @apiDefine PostPut
+ * @apiDefine PP
  * @apiParam (Request body) {String} title Titulo del trabajo.
  * @apiParam (Request body) {String} description Descripción del trabajo.
  * @apiParam (Request body) {String} employer Empleador.
@@ -37,7 +35,7 @@ const router = Router();
  * @apiParam (Request body) {[ObjectId]} proposals Propuesta/s del empleador.
  */
 
-/**
+ /**
  * @api {get} /jobs Obtiene todos los trabajos
  * @apiDescription Obtiene un arreglo todos los trabajos almacenados en la base de datos.
  * @apiName GetJobs
@@ -63,8 +61,8 @@ router.get('/', handlerExceptionRoute(jobCtrl.getJobs));
  * @apiDescription Crea un nuevo Trabajo y lo almacena en la base de datos.
  * @apiName PostJob
  * @apiGroup Jobs
- * @apiUse PostPut
- * @apiUse OneSuccessResponse
+ * @apiUse PP
+ * @apiUse OneSuccessR
  * @apiUse ErrorResponse
  */
 router.post(
@@ -79,7 +77,7 @@ router.post(
  * @apiName GetJobID
  * @apiGroup Jobs
  * @apiParam {String} _id Identificador del objeto almacenado.
- * @apiUse OneSuccessResponse
+ * @apiUse OneSuccessR
  * @apiUse ErrorResponse
  */
 router.route('/:id').get(handlerExceptionRoute(jobCtrl.getJob));
@@ -88,17 +86,17 @@ router.route('/:id').get(handlerExceptionRoute(jobCtrl.getJob));
  * @api {put} /jobs/:id Actualiza un trabajo en especifico
  * @apiDescription Obtiene un trabajo en especifico de los guardados en la base de datos y lo actualiza con el
  * contenido del cuerpo.
- * @apiName GetJobID
+ * @apiName PutJob
  * @apiGroup Jobs
  * @apiParam {String} _id Identificador del objeto almacenado.
- * @apiUse PostPut
+ * @apiUse PP
  * @apiUse OneSuccessResponse
  * @apiUse ErrorResponse
  */
 router.route('/:id').put(handlerExceptionRoute(jobCtrl.updateJob));
 
 /**
- * @api {delete} /jobs/:id Elimina un trabajo en especifico.
+ * @api {delete} /jobs/:id Elimina un trabajo en especifico
  * @apiDescription Obtiene un trabajo en especifico de los guardados en la base de datos a traves de su _id
  * y lo elimina.
  * @apiName DeleteJobID

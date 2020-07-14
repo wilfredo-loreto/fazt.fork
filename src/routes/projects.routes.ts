@@ -4,7 +4,6 @@ import { Router } from 'express';
 import { handlerExceptionRoute } from '../error';
 import * as projectCtrl from '../controllers/project.controller';
 import * as projectValidators from '../validators/projects.validator';
-
 const router = Router();
 
 /**
@@ -15,9 +14,8 @@ const router = Router();
  *       "message": "dataMessage",
  *     }
  */
-
 /**
- * @apiDefine OneSuccessResponse
+ * @apiDefine OneSuccessRe
  * @apiSuccessExample {json} Success-Response:
  *     HTTP/1.1 200 OK
  *      {
@@ -31,9 +29,8 @@ const router = Router();
  *       "githubURL": "dataGitHubUrl"
  *      }
  */
-
 /**
- * @apiDefine PostPut
+ * @apiDefine PostPut1
  * @apiParam (Request body) {String} name Nombre del proyecto
  * @apiParam (Request body) {String} description Descripción del proyecto
  * @apiParam (Request body) {String} status Estado del proyecto
@@ -44,8 +41,8 @@ const router = Router();
  */
 
 /**
- * @api {get} /projects Obtiene todas los Proyectos
- * @apiDescription Obtiene un arreglo todos los proyectos almacenados en la base de datos.
+ * @api {get} /projects Obtiene todos los Proyectos
+ * @apiDescription Obtiene un arreglo de todos los proyectos almacenados en la base de datos.
  * @apiName GetProject
  * @apiGroup Projects
  * @apiSuccessExample {json} Success-Response:
@@ -71,8 +68,8 @@ router.get('/', handlerExceptionRoute(projectCtrl.getProjects));
  * @apiDescription Crea un nuevo proyecto y lo almacena en la base de datos.
  * @apiName PostProject
  * @apiGroup Projects
- * @apiUse PostPut
- * @apiUse OneSuccessResponse
+ * @apiUse PostPut1
+ * @apiUse OneSuccessRe
  * @apiUse ErrorResponse
  */
 router.post(
@@ -82,34 +79,25 @@ router.post(
 );
 
 /**
- * @api {get} /projects/:id Obtiene un proyecto en especifico.
+ * @api {get} /projects/:id Obtiene un proyecto en especifico
  * @apiDescription Obtiene un proyecto en especifico de los almacenados en la base de datos a traves de su _id.
  * @apiName GetProjectID
  * @apiGroup Projects
- *
- * @apiParam id
- *
- * @apiSuccess {String} name Name of the project.
- * @apiSuccess {String} description Description of the Project.
- * @apiSuccess {String} status Status of the Project.
- * @apiSuccess {String} tags of the Project.
- * @apiSuccess {String} projectType Type of the Project.
- * @apiSuccess {String} url URL of the Project.
- * @apiSuccess {String} githubURL githubURL of the Project.
- *
- * @apiError Project not found.
+ * @apiParam {String} _id Identificador del objeto almacenado.
+ * @apiUse OneSuccessRe
+ * @apiUse ErrorResponse
  */
 router.get('/:id', handlerExceptionRoute(projectCtrl.getProject));
 
 /**
- * @api {put} /projects/:id Actualiza un proyecto en especifico.
+ * @api {put} /projects/:id Actualiza un proyecto en especifico
  * @apiDescription Obtiene un proyecto en especifico de los almacenados en la base de datos a traves de su _id
  *  y lo actualiza con el contenido del cuerpo.
- * @apiName GetProjectID
+ * @apiName PutProject
  * @apiGroup Projects
  * @apiParam {String} _id Identificador del objeto almacenado.
- * @apiUse PostPut
- * @apiUse OneSuccessResponse
+ * @apiUse PostPut1
+ * @apiUse OneSuccessRe
  * @apiUse ErrorResponse
  */
 router.put('/:id', handlerExceptionRoute(projectCtrl.updateProject));
