@@ -34,6 +34,6 @@ export const updateJob: Handler = async (req, res) => {
   const job = await Jobs.findByIdAndUpdate(req.params.id, req.body, {
     new: true
   }).exec();
-  if (!job) throw new ErrorHandler(NOT_FOUND, 'User Dont Exists');
+  if (!job) throw new ErrorHandler(NOT_FOUND, 'Job Dont Exists');
   return res.json(job);
 };
