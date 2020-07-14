@@ -57,7 +57,8 @@ router.get('/', handlerExceptionRoute(miscCtrl.getMiscs));
  * @apiUse OneSuccessRes
  * @apiUse ErrorResponse
  */
-router.get('/', handlerExceptionRoute(miscCtrl.getMisc));
+
+router.get('/:id', handlerExceptionRoute(miscCtrl.getMisc));
 
 /**
  * @api {post} /misc Crea un nuevo enlace
@@ -80,7 +81,8 @@ router.post('/', handlerExceptionRoute(miscCtrl.createMisc));
  * @apiUse OneSuccessRes
  * @apiUse ErrorResponse
  */
-router.put('/', handlerExceptionRoute(miscCtrl.updateMisc));
+
+router.put('/:id', handlerExceptionRoute(miscCtrl.updateMisc));
 
 /**
  * @api {delete} /misc/:id Elimina un enlace en especifico
@@ -96,6 +98,7 @@ router.put('/', handlerExceptionRoute(miscCtrl.updateMisc));
  *     }
  * @apiUse ErrorResponse
  */
-router.delete('/',handlerExceptionRoute(miscCtrl.deleteMisc));
+
+router.delete('/:id',handlerExceptionRoute(miscCtrl.deleteMisc));
 
 export default router;
