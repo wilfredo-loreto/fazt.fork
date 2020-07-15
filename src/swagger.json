@@ -1,0 +1,348 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Fazt Community API",
+    "description": "Servicios REST para la aplicación de Fazt Commnity",
+    "version": "1.0.0",
+    "termsOfService": "http://swagger.io/terms/",
+    "contact": {
+      "email": "api@faztcommunity.dev"
+    },
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+    }
+  },
+  "tags": [
+    {
+      "name": "Projects",
+      "description": "Ingresé descripción",
+      "externalDocs": {
+        "description": "Find out more",
+        "url": "https://faztcommunity.dev"
+      }
+    },
+    {
+      "name": "Users",
+      "description": "Access to users"
+    },
+    {
+      "name": "Tasks"
+    },
+    {
+      "name": "Discord"
+    },
+    {
+      "name": "Workshop"
+    },
+    {
+      "name": "Job"
+    },
+    {
+      "name": "Suggestion"
+    },
+    {
+      "name": "News"
+    },
+    {
+      "name": "Misc"
+    },
+    {
+      "name": "Github"
+    }
+  ],
+  "schemes": ["https", "http"],
+  "produces": ["application/json"],
+  "basePath": "/",
+  "paths": {
+    "/projects": {
+      "get": {
+        "summary": "",
+        "description": "",
+        "x-swagger-router-controller": "",
+        "operationId": "get",
+        "tags": ["Projects"],
+        "responses": {
+          "200": {
+            "description": "Operación exitosa",
+            "schema": {
+              "ref": ""
+            }
+          },
+          "404": {
+            "description": "No encontrado"
+          },
+          "500": {
+            "description": "Error interno del servidor"
+          }
+        }
+      },
+      "post": {
+        "summary": "",
+        "description": "",
+        "x-swagger-router-controller": "",
+        "operationId": "post",
+        "tags": ["Projects"],
+        "responses": {
+          "200": {
+            "description": "Operación exitosa",
+            "schema": {
+              "ref": ""
+            }
+          },
+          "404": {
+            "description": "No encontrado"
+          },
+          "500": {
+            "description": "Error interno del servidor"
+          }
+        }
+      }
+    },
+    "/projects/{:id}": {
+      "put": {
+        "tags": ["Projects"],
+        "summary": "",
+        "description": "",
+        "operationId": "",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "status",
+            "in": "query",
+            "description": "Status values that need to be considered for filter",
+            "required": true,
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": ["available", "pending", "sold"],
+              "default": "available"
+            },
+            "collectionFormat": "multi"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": ""
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid status value"
+          }
+        }
+      }
+    },
+    "/users": {
+      "get": {
+        "summary": "",
+        "description": "",
+        "operationId": "get",
+        "produces": ["application/json"],
+        "tags": ["Users"],
+        "responses": {
+          "200": {
+            "description": "Operación exitosa",
+            "schema": {
+              "ref": "#/"
+            }
+          },
+          "404": {
+            "description": "No encontrado"
+          },
+          "500": {
+            "description": "Error interno del servidor"
+          }
+        }
+      }
+    },
+    "/tasks": {
+      "get": {
+        "summary": "",
+        "description": "",
+        "operationId": "get",
+        "produces": ["application/json"],
+        "tags": ["Tasks"],
+        "responses": {
+          "200": {
+            "description": "Operación exitosa",
+            "schema": {
+              "ref": "#/"
+            }
+          },
+          "404": {
+            "description": "No encontrado"
+          },
+          "500": {
+            "description": "Error interno del servidor"
+          }
+        }
+      }
+    },
+    "/discord": {
+      "get": {
+        "summary": "",
+        "description": "",
+        "operationId": "get",
+        "produces": ["application/json"],
+        "tags": ["Discord"],
+        "responses": {
+          "200": {
+            "description": "Operación exitosa",
+            "schema": {
+              "ref": "#/"
+            }
+          },
+          "404": {
+            "description": "No encontrado"
+          },
+          "500": {
+            "description": "Error interno del servidor"
+          }
+        }
+      }
+    },
+    "/workshop": {
+      "get": {
+        "summary": "",
+        "description": "",
+        "operationId": "get",
+        "produces": ["application/json"],
+        "tags": ["Workshop"],
+        "responses": {
+          "200": {
+            "description": "Operación exitosa",
+            "schema": {
+              "ref": "#/"
+            }
+          },
+          "404": {
+            "description": "No encontrado"
+          },
+          "500": {
+            "description": "Error interno del servidor"
+          }
+        }
+      }
+    },
+    "/job": {
+      "get": {
+        "summary": "",
+        "description": "",
+        "operationId": "get",
+        "produces": ["application/json"],
+        "tags": ["Job"],
+        "responses": {
+          "200": {
+            "description": "Operación exitosa",
+            "schema": {
+              "ref": "#/"
+            }
+          },
+          "404": {
+            "description": "No encontrado"
+          },
+          "500": {
+            "description": "Error interno del servidor"
+          }
+        }
+      }
+    },
+    "/suggestion": {
+      "get": {
+        "summary": "",
+        "description": "",
+        "operationId": "get",
+        "produces": ["application/json"],
+        "tags": ["Suggestion"],
+        "responses": {
+          "200": {
+            "description": "Operación exitosa",
+            "schema": {
+              "ref": "#/"
+            }
+          },
+          "404": {
+            "description": "No encontrado"
+          },
+          "500": {
+            "description": "Error interno del servidor"
+          }
+        }
+      }
+    },
+    "/news": {
+      "get": {
+        "summary": "",
+        "description": "",
+        "operationId": "get",
+        "produces": ["application/json"],
+        "tags": ["News"],
+        "responses": {
+          "200": {
+            "description": "Operación exitosa",
+            "schema": {
+              "ref": "#/"
+            }
+          },
+          "404": {
+            "description": "No encontrado"
+          },
+          "500": {
+            "description": "Error interno del servidor"
+          }
+        }
+      }
+    },
+    "/misc": {
+      "get": {
+        "summary": "",
+        "description": "",
+        "operationId": "get",
+        "produces": ["application/json"],
+        "tags": ["Misc"],
+        "responses": {
+          "200": {
+            "description": "Operación exitosa",
+            "schema": {
+              "ref": "#/"
+            }
+          },
+          "404": {
+            "description": "No encontrado"
+          },
+          "500": {
+            "description": "Error interno del servidor"
+          }
+        }
+      }
+    },
+    "/github": {
+      "get": {
+        "summary": "",
+        "description": "",
+        "operationId": "get",
+        "produces": ["application/json"],
+        "tags": ["Github"],
+        "responses": {
+          "200": {
+            "description": "Operación exitosa",
+            "schema": {
+              "ref": "#/"
+            }
+          },
+          "404": {
+            "description": "No encontrado"
+          },
+          "500": {
+            "description": "Error interno del servidor"
+          }
+        }
+      }
+    }
+  }
+}
